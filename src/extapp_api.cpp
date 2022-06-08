@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <stdio.h>
 
+char * clipboard = "";
+
 uint64_t extapp_millis() {
     return EADK::Timing::millis();
 }
@@ -28,7 +30,7 @@ void extapp_pushRectUniform(int16_t x, int16_t y, uint16_t w, uint16_t h, uint16
 }
 
 void extapp_pullRect(int16_t x, int16_t y, uint16_t w, uint16_t h, uint16_t * pixels) {
-    // Not implemented yet by the EADK
+    EADK::Display::pullRect(EADK::Display::Rect(x, y, w, h), (EADK::Display::Color *) pixels);
 }
 
 const int16_t largeFontSize = 16;
@@ -56,14 +58,13 @@ bool extapp_waitForVBlank() {
 }
 
 void extapp_clipboardStore(const char *text) {
-    // Not implemented yet by the EADK
-    // TODO: Implement this, even if it's stored in a simple variable
+    // Not implemented yet by the EADK, so we just store the text in a global variable
+    clipboard = (char *) text;
 }
 
 const char * extapp_clipboardText() {
-    // Not implemented yet by the EADK
-    // TODO: Implement this, even if it's stored in a simple variable
-    return "";
+    // Not implemented yet by the EADK, so we just return the text from a global variable
+    return clipboard;
 }
 
 // All filesystem functions are not implemented yet by the EADK
@@ -149,7 +150,6 @@ int extapp_getKey(int allowSuspend, bool *alphaWasActive) {
     if (alphaWasActive) {
         *alphaWasActive = alphaActive;
     }
-    // return KEY_CTRL_RIGHT;
     // TODO: Add allowSuspend support EADK api add it
     // Get the key
     while (true) {

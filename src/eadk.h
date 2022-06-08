@@ -41,6 +41,7 @@ private:
 
 void pushRect(Rect rect, const Color * pixels);
 void pushRectUniform(Rect rect, Color color);
+void pullRect(Rect rect, Color * pixels);
 void drawString(const char * text, Point point, bool largeFont, Color textColor, Color backgroundColor);
 bool waitForVblank();
 

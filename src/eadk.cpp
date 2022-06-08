@@ -9,6 +9,7 @@ extern "C" {
 // Display
 void eadk_display_push_rect(EADK::Display::Rect rect, const EADK::Display::Color * pixels);
 void eadk_display_push_rect_uniform(EADK::Display::Rect rect, EADK::Display::Color color);
+void eadk_display_pull_rect(EADK::Display::Rect rect, EADK::Display::Color * pixels);
 void eadk_display_draw_string(const char * text, EADK::Display::Point p, bool largeFont, EADK::Display::Color textColor, EADK::Display::Color backgroundColor);
 uint8_t eadk_display_wait_for_vblank();
 
@@ -34,6 +35,10 @@ void pushRect(Rect rect, const Color * pixels) {
 
 void pushRectUniform(Rect rect, Color color) {
   eadk_display_push_rect_uniform(rect, color);
+}
+
+void pullRect(Rect rect, Color * pixels) {
+  eadk_display_pull_rect(rect, pixels);
 }
 
 void drawString(const char * text, EADK::Display::Point p, bool largeFont, EADK::Display::Color textColor, EADK::Display::Color backgroundColor) {
