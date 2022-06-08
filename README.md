@@ -6,6 +6,10 @@
 
 This is a sample C++ app to use on a [NumWorks calculator](https://www.numworks.com).
 
+This is a repository for building Omega/Upsilon external applications for Epsilon 16's external applications.
+
+You just need to copy the source code into the `src/app` folder of the repository and run `make clean && make run` to build and run the application.
+
 ```cpp
 
 using namespace EADK;
