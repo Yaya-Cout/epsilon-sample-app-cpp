@@ -5,6 +5,8 @@
 #include <stdio.h>
 
 char * clipboard = NULL;
+extern const char* files[10];
+extern const uint8_t* assets[10];
 
 uint64_t extapp_millis() {
     return EADK::Timing::millis();
@@ -69,23 +71,75 @@ const char * extapp_clipboardText() {
 
 // All filesystem functions are not implemented yet by the EADK
 // Implementing dummy functions
+
+bool match(const char * filename, const char * extension) {
+  return strcmp(filename + strlen(filename) - strlen(extension), extension) == 0;
+}
+
 int extapp_fileListWithExtension(const char ** filenames, int maxrecords, const char * extension, int storage) {
-    return 0;
+  int j = 0;
+  // Don't read external files the exam mode is enabled
+  if (extapp_inexammode()) return j;
+  if (storage == EXTAPP_FLASH_FILE_SYSTEM || storage == EXTAPP_BOTH_FILE_SYSTEM) {
+    // The number of files is the number of elements in the files array (files[])
+    int n = sizeof(files) / sizeof(files[0]);
+    n = 1;
+    for (int i = 0; i < n && j < maxrecords; i++) {
+      const char * filename = files[i];
+      // Filter extension
+      if (match(filename, extension)) {
+        filenames[j] = filename;
+        return n;
+        ++j;
+      }
+    }
+  }
+  return j;
 }
 
 bool extapp_fileExists(const char * filename, int storage) {
+    // If the exam mode is enabled, we don't read external files
+    if (extapp_inexammode()) return false;
+    // Iterate over the files array
+    for (int i = 0; i < sizeof(files) / sizeof(files[0]); i++) {
+        const char * file = files[i];
+        // If the filename matches, return true
+        if (strcmp(filename, file) == 0) return true;
+    }
     return false;
 }
 
 bool extapp_fileErase(const char * filename, int storage) {
+    // RAM fs is not implemented yet by the EADK
     return false;
 }
 
 const char * extapp_fileRead(const char * filename, size_t *len, int storage) {
-    return nullptr;
+  // If the exam mode is enabled, we don't read external files
+    if (extapp_inexammode()) return NULL;
+    if (storage == EXTAPP_FLASH_FILE_SYSTEM || storage == EXTAPP_BOTH_FILE_SYSTEM) {
+        // Get the index of the file in the files array
+        int index = -1;
+        for (; index < sizeof(files) / sizeof(files[0]); index++) {
+            // Ignore -1, it is out of bounds
+            if (index == -1) continue;
+            const char * file = files[index];
+            if (strcmp(filename, file) == 0) break;
+        }
+        // If the file was not found, return NULL
+        if (index == -1) return NULL;
+        if (index >= 0) {
+            // Set the length to the length of the file
+            *len = strlen(files[index]);
+            // Return the file content
+            return (const char *)files[index];
+        }
+    }
+  return NULL;
 }
 
 bool extapp_fileWrite(const char * filename, const char * content, size_t len, int storage) {
+    // RAM fs is not implemented yet by the EADK
     return false;
 }
 

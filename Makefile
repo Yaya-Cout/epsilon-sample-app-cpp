@@ -20,6 +20,10 @@ src += $(addprefix eadk/,\
   eadk.s \
 )
 
+src += $(addprefix target/,\
+  assets.cpp \
+)
+
 # Include src/app/sources.mak and add the app_external_src content to the list of sources
 EXTAPP_PATH = src/app
 include $(EXTAPP_PATH)/sources.mak
@@ -65,7 +69,11 @@ $(BUILD_DIR)/device_information.ld: | $(BUILD_DIR)
 
 .PRECIOUS: $(BUILD_DIR)
 $(BUILD_DIR):
-	$(Q) mkdir -p $@/src $@/eadk $@/src/app
+	$(Q) mkdir -p $@/src $@/eadk $@/src/app $@/target
+
+target/assets.cpp:
+	@echo "ASSETS $@"
+	$(Q) python3 eadk/assets.py $@
 
 .PHONY: clean
 clean:

@@ -1,3 +1,5 @@
 app_external_src += $(addprefix $(EXTAPP_PATH)/,\
-	periodic.c \
+	main.c \
+	peripherals.c \
+	selector.c \
 )

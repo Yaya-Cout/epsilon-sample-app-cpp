@@ -27,6 +27,8 @@ typedef int64_t int_fast64_t;
 
 typedef uint8_t uint_least8_t;
 
+typedef uint32_t size_t;
+
 #define INT8_MAX 0x7f
 #define INT8_MIN (-INT8_MAX-1)
 
