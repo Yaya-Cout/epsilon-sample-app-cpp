@@ -51,7 +51,7 @@ int16_t extapp_drawTextSmall(const char *text, int16_t x, int16_t y, uint16_t fg
     return x + smallFontSize * strlen(text);
 }
 
-bool extapp_waitForVblank() {
+bool extapp_waitForVBlank() {
     return EADK::Display::waitForVblank();
 }
 
