@@ -7,16 +7,13 @@ $(addprefix $(BUILD_DIR)/,$(addsuffix .o,$(basename $(1))))
 endef
 
 src = $(addprefix src/,\
-  alien.cpp \
   eadk.cpp \
-  life.cpp \
   main.cpp \
   memcpy.cpp \
   memset.cpp \
-  rocket.cpp \
-  spaceship.cpp \
-  score.cpp \
   start.cpp \
+  extapp_api.cpp \
+  printf.cpp \
 )
 
 src += $(addprefix eadk/,\
@@ -25,7 +22,7 @@ src += $(addprefix eadk/,\
 
 SFLAGS = -I. -Wall -MD -MP -ggdb3 -mthumb -mfloat-abi=hard -mcpu=cortex-m7 -mfpu=fpv5-sp-d16 -Isrc
 CPPFLAGS = -Os -std=c++11 -fdata-sections -ffunction-sections -fno-exceptions -ffreestanding -fno-rtti -nostdinc -nostdlib -fno-threadsafe-statics
-LFLAGS =  -Wl,--gc-sections -lgcc -Wl,-T,eadk/eadk.ld
+LFLAGS =  -Wl,--gc-sections -lgcc -Wl,-T,eadk/eadk.ld -specs=nano.specs -specs=nosys.specs
 
 .PHONY: run
 run: $(BUILD_DIR)/external_application.elf $(BUILD_DIR)/device_information.ld

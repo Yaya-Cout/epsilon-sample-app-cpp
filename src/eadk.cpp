@@ -10,12 +10,14 @@ extern "C" {
 void eadk_display_push_rect(EADK::Display::Rect rect, const EADK::Display::Color * pixels);
 void eadk_display_push_rect_uniform(EADK::Display::Rect rect, EADK::Display::Color color);
 void eadk_display_draw_string(const char * text, EADK::Display::Point p, bool largeFont, EADK::Display::Color textColor, EADK::Display::Color backgroundColor);
+uint8_t eadk_display_wait_for_vblank();
 
 // Keyboard
 uint64_t eadk_keyboard_scan();
 
 // Timing
 void eadk_timing_msleep(uint32_t ms);
+uint64_t eadk_timing_millis();
 
 // Misc
 uint32_t eadk_random();
@@ -38,6 +40,11 @@ void drawString(const char * text, EADK::Display::Point p, bool largeFont, EADK:
   eadk_display_draw_string(text, p, largeFont, textColor, backgroundColor);
 }
 
+bool waitForVblank() {
+  return eadk_display_wait_for_vblank() == 0;
+}
+
+
 }
 
 namespace Keyboard {
@@ -52,6 +59,10 @@ namespace Timing {
 
 void msleep(uint32_t ms) {
   return eadk_timing_msleep(ms);
+}
+
+uint64_t millis() {
+  return eadk_timing_millis();
 }
 
 }

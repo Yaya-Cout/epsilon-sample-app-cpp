@@ -48,6 +48,6 @@ void eadk_start() {
   }
 #endif
   // Jump to main
-  eadk_main();
+  extapp_main();
 }
 

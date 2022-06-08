@@ -1,0 +1,1 @@
+// Dummy file because external apps for Omega/Upsilon are also in C, without boolean type

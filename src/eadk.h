@@ -10,7 +10,6 @@ namespace Display {
 class Color {
 public:
   constexpr Color(uint32_t rgb) : m_value(((rgb&0xF80000)>>8)|((rgb&0x00FC00)>>5)|((rgb&0x0000F8)>>3)) {}
-private:
   uint16_t m_value;
 };
 
@@ -43,6 +42,7 @@ private:
 void pushRect(Rect rect, const Color * pixels);
 void pushRectUniform(Rect rect, Color color);
 void drawString(const char * text, Point point, bool largeFont, Color textColor, Color backgroundColor);
+bool waitForVblank();
 
 }
 
@@ -102,7 +102,7 @@ public:
   inline bool keyDown(Key k) const {
     return (m_bitField>>(uint8_t)k) & 1;
   }
-private:
+// private:
   uint64_t m_bitField;
 };
 
@@ -113,6 +113,7 @@ State scan();
 namespace Timing {
 
 void msleep(uint32_t ms);
+uint64_t millis();
 
 }
 
