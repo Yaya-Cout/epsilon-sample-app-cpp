@@ -54,7 +54,7 @@ $(addprefix $(BUILD_DIR)/,%.o): %.s | $(BUILD_DIR)
 	$(Q) arm-none-eabi-as $^ -o $@
 
 .PRECIOUS: $(BUILD_DIR)/icon.ld
-$(BUILD_DIR)/icon.ld: src/icon.png | $(BUILD_DIR)
+$(BUILD_DIR)/icon.ld: src/app/icon.png | $(BUILD_DIR)
 	@echo "INLINE   $<"
 	$(Q) python3 eadk/inliner.py $< $@
 

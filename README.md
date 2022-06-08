@@ -10,6 +10,10 @@ This is a repository for building Omega/Upsilon external applications for Epsilo
 
 You just need to copy the source code into the `src/app` folder of the repository and run `make clean && make run` to build and run the application.
 
+To change the application name, change the `eadk_app_name` variable in `src/main.cpp`.
+
+To change the application's icon, add your own icon at `src/icon.png`.
+
 ```cpp
 
 using namespace EADK;

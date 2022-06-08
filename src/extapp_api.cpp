@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-char * clipboard = "";
+char * clipboard = NULL;
 
 uint64_t extapp_millis() {
     return EADK::Timing::millis();

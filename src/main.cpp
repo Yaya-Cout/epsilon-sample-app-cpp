@@ -1,1 +1,1 @@
-extern "C" const char eadk_app_name[] = "UnitCircle";
+extern "C" const char eadk_app_name[] = "Periodic";

@@ -43,4 +43,9 @@ parser.add_argument('png', metavar='icon.png', help='input PNG file')
 parser.add_argument('ld', metavar='script.ld', help='output linker script')
 
 args = parser.parse_args()
-generate_linker_script(args.png, args.ld)
+try:
+  generate_linker_script(args.png, args.ld)
+except FileNotFoundError:
+  print("Error: File not found: " + args.png)
+  print("Using default path, for EADK applications compatibility")
+  generate_linker_script('src/icon.png', args.ld)
